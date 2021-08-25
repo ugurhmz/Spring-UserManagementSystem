@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Users")
+@Table(name="users")
 public class User {
 
 	
@@ -158,6 +158,13 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", password=" + password + ", photos=" + photos + ", enabled=" + enabled + ", roles=" + roles + "]";
+	}
+
+	
+	// add Role
+	public void addRole(Role role) {
+		this.roles.add(role);
+		
 	}
 	
 }
