@@ -101,7 +101,17 @@ public class UserService {
 		}
 	
 	
-	
+	// DELETE USER
+		public void delete(Integer id) throws UserNotFoundException {
+			Long takeById = userRepository.countById(id);
+			
+			if(takeById == null || takeById == 0) {		// if user id null -> Throw Exception
+				throw new UserNotFoundException("Could not find any user ID : "+id);
+			}
+			
+			// user has been id then delete it.
+			userRepository.deleteById(id);
+		}
 	
 	
 	

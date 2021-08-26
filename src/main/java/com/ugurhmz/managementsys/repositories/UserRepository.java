@@ -13,6 +13,12 @@ import com.ugurhmz.managementsys.entity.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 	
+	// countById KULLAN -> find yerine bu kullanılır, Kendin isim verirsen HATA ALIRSIN
+	//If you give a custom name it, you will get an error.  don't USE Example names : takeById, heyMyId...
+	public Long countById(Integer id);
+	
+	
+	
 	// FOR isEmailUnique
 	@Query("SELECT u FROM  User u WHERE u.email = :email")
 	public User getByUserEmail(@Param("email") String email);
