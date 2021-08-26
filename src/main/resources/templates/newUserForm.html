@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+
+	<head th:replace="partials/head :: head_section('User Management System')"></head>
+
+<body>
+
+<!--  NAVBAR -->
+	<div th:replace="partials/_navbar :: mynavbar"></div>
+<!--  /NAVBAR -->
+
+
+
+
+
+	<!--  CONTAINER -->
+		<div class="container-fluid">
+		
+			<div class="my-4 createForm col-md-8 p-4">
+				<h1 class="text-center">[[${pageTitle}]]</h1>
+			
+			
+				<!-- form -->
+				<form th:action="@{/users/save}" method="POST" style="max-width:750px;margin:0 auto;"
+					  enctype="multipart/form-data"
+					  th:object="${user}">
+					  
+					  <input type="hidden" th:field="*{id}"  />
+						
+						
+					  <div class="form-group row">
+					  	 <label for="email" class="col-sm-2 col-form-label">Email</label>
+					  	
+					  	<div class="col-sm-10">
+					  		<input type="email" class="form-control"  th:field="*{email}" required minlenght="8" maxlength="200" 		/>
+					  	</div>				
+					  </div>	
+					  
+					  
+					  <div class="form-group row">
+					  		<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+					 		
+					 		<div class="col-sm-10">
+					 			<input type="text" class="form-control" th:field="*{firstName}" required minlength="3" maxlength="80"/>
+					 		</div> 
+					  </div>
+					  
+					  
+					  <div class="form-group row">
+					  		<label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+					  		
+					  		<div class="col-sm-10">
+					  			<input type="text" class="form-control" th:field="*{lastName}" required minlength="2" maxlength="200" />
+					  		</div>
+					  </div>
+					  
+					  
+					  <div class="form-group row">
+						  	<label for="password" class="col-sm-2 col-form-label">Password</label>
+						  	
+						  	<div class="col-sm-10">
+						  		<input th:if="${user.id == null}" type="password" 
+						  		 class="form-control" th:field="*{password}" required minlength="8" maxlength="80" />
+						  
+						  		<input  th:if="${user.id != null}" type="password" 
+						  				class="form-control" th:field="*{password}" minlength="8" maxlength="80" 
+						  		 />
+						  	</div> 
+					  </div>
+					  
+					  
+					  <fieldset class="form-group row">
+					  	<legend class="col-form-label col-sm-2 float-sm-left pt-0">Roles</legend>
+					  	
+					  	<div class="col-sm-10">
+					  		<div class="form-check">
+					  		
+					  			<th:block th:each="role : ${roles}">
+					  					<input class="form-check-input" 
+					  					       type="checkbox" th:field="*{roles}"
+					  					       th:value="${role.id}"
+					  					       th:text="${role.name}"
+					  						   checked/>
+					  						   
+					  					- <small>[[${role.description}]]</small>	   
+					  						<br/><br/>
+					  			</th:block>
+					  		</div>
+					  	</div>
+					  </fieldset>
+					
+					<fieldset class="form-group row">
+						<legend class="col-form-label col-sm-2 float-sm-left pt-0">Enabled</legend>
+						
+						<div class="col-sm-10">
+							<div class="form-check">
+								<input 	class="form-check-input"
+										type="checkbox" th:field="*{enabled}" value="option1"		
+								 />
+							</div>
+						</div>
+					</fieldset>
+					
+					<fieldset class="form-group row">
+						<legend class="col-form-label col-sm-2 float-sm-left pt-0">Photos</legend>
+						
+						<div class="form-group col-sm-8">
+							<input  type="hidden" th:field="*{photos}" />
+							<input  type="file" accept="image/png, image/jpeg" name="imageInput" 
+									class="form-control-file w-50" id="fileImage" />
+							
+							<img id="thumbnail" alt="Default Photo" class="img-fluid mt-4 myPhoto" />
+							
+						</div>
+					
+					</fieldset>
+					
+					<!--  btn save & cancel -->
+					<div class="form-group row text-center">
+					
+						<!--  save submit -->
+						<div class="offset-5">
+							<input type="submit" class="btn btn-success" value="Save" />
+						</div>
+						
+						<!--  cancel btn -->
+						<div class="ml-3">
+							<input type="button" class="btn btn-dark" id="cancelBtn" value="Cancel" />
+						</div>		
+					</div>
+					
+					
+				</form>
+			
+			</div>
+			
+		</div>
+	<!--  /CONTAINER -->
+	
+	
+	
+	
+	
+	
+	
+	<!--  FOOTER  -->
+		<div th:replace="partials/_footer :: myfooter"></div>
+	<!--  /FOOTER  -->
+
+</body>
+</html>
+
+
+
+
+
+
+

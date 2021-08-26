@@ -6,7 +6,20 @@
 footer {
 	
 	bottom: 0;
-    position: absolute;
+    
     width: 100%;
     clip-path: polygon(26% 36%, 79% 20%, 100% 36%, 100% 100%, 100% 100%, 33% 100%, 0 100%, 0 23%);
+}
+
+
+/* User form*/
+.createForm {
+	margin : 0 auto;
+	border-radius: 50px;
+	font-weight:bolder;
+	background: white;
+	box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+	
 }
