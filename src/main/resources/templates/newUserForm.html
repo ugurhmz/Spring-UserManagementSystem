@@ -23,13 +23,14 @@
 				<!-- form -->
 				<form th:action="@{/users/save}" method="POST" style="max-width:750px;margin:0 auto;"
 					  enctype="multipart/form-data"
-					  th:object="${user}">
+					  th:object="${user}"
+					  onsubmit="return checkEmailUnique(this);">
 					  
 					  <input type="hidden" th:field="*{id}"  />
 						
 						
 					  <div class="form-group row">
-					  	 <label for="email" class="col-sm-2 col-form-label">Email</label>
+					  	 <label for="emailInput" class="col-sm-2 col-form-label">Email</label>
 					  	
 					  	<div class="col-sm-10">
 					  		<input type="email" class="form-control"  th:field="*{email}" required minlenght="8" maxlength="200" 		/>
@@ -38,7 +39,7 @@
 					  
 					  
 					  <div class="form-group row">
-					  		<label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+					  		<label for="firstNameInput" class="col-sm-2 col-form-label">First Name</label>
 					 		
 					 		<div class="col-sm-10">
 					 			<input type="text" class="form-control" th:field="*{firstName}" required minlength="3" maxlength="80"/>
@@ -47,7 +48,7 @@
 					  
 					  
 					  <div class="form-group row">
-					  		<label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+					  		<label for="lastNameInput" class="col-sm-2 col-form-label">Last Name</label>
 					  		
 					  		<div class="col-sm-10">
 					  			<input type="text" class="form-control" th:field="*{lastName}" required minlength="2" maxlength="200" />
@@ -56,7 +57,7 @@
 					  
 					  
 					  <div class="form-group row">
-						  	<label for="password" class="col-sm-2 col-form-label">Password</label>
+						  	<label for="passwordInput" class="col-sm-2 col-form-label">Password</label>
 						  	
 						  	<div class="col-sm-10">
 						  		<input th:if="${user.id == null}" type="password" 
@@ -132,8 +133,34 @@
 					
 				</form>
 			
-			</div>
-			
+			<!-- Modal -->
+					<div class="modal fade text-center" id="modalDialog" tabindex="-1">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						    
+						      <div class="modal-header">
+						        <h5 class="modal-title text-danger" id="modalTitle"></h5>
+						        
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						        
+						      </div>
+						      
+						      <div class="modal-body text-info">
+						        <h5 id="modalBody"></h5>
+						      </div>
+						      
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						      
+						    </div>
+						  </div>
+					</div>
+				<!-- /Modal -->	
+			</div>	
 		</div>
 	<!--  /CONTAINER -->
 	
@@ -146,6 +173,63 @@
 	<!--  FOOTER  -->
 		<div th:replace="partials/_footer :: myfooter"></div>
 	<!--  /FOOTER  -->
+
+
+
+
+	
+	<script type="text/javascript">
+		
+		 // AJAX  isEmailUnique and Modal message
+		 function checkEmailUnique(form){
+			 url = "[[@{/users/check-email-user}]]"; // RestController'de @PostMapping'teki url'yi al.
+			 	userEmail = $("#email").val();
+				userId = $("#id").val();
+				csrfValue = $("input[name='_csrf']").val();
+				
+				params = {
+						id : userId,
+						email : userEmail,
+						_csrf : csrfValue
+				};
+			 	
+			 	
+			 	$.post(url, params, function (response) {
+			 		if( response == "YES"){   // coming from @RestController    -> Restten gelen email uniquq ise formu submit et.
+			 			form.submit();
+			 		
+			 		} else if( response == "NO"){
+			 				showModalMessage(userEmail + " is already use!!!","Check your e-mail address");
+			 		} else {
+			 			showModalMessage("ERR!");
+			 		}
+			 		
+			 		
+			 		
+			 	}).fail( function () {
+			 		
+			 		showModalMessage("Error","Could not connect to the server");
+			 	});
+			 	
+			 return false;
+		 }
+		
+	
+		// SHOW MODAL MESSAGE , COMING AJAX
+		function showModalMessage(title,message){
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+	
+	
+	
+	
+	</script>
+
+
+
+
 
 </body>
 </html>
