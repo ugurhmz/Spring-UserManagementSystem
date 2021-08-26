@@ -44,7 +44,7 @@
 				
 				
 				<!-- Message -->	
-					<div th:if="${message != null}" style="margin:0 auto;">
+					<div th:if="${message != null}" style="margin:0 auto;width: 80%;">
 						<div class="alert text-center alert-success alert-dismissible fade show" role="alert">
 					 		  <strong>[[${message}]] </strong>
 							  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -79,7 +79,7 @@
 					
 					<tbody	>
 						<tr th:each=" user : ${listUsers}">
-							<td>[[${user.id}]]</td>
+							<td class="font-weight-bolder">[[${user.id}]]</td>
 							<td>photos</td>
 							<td>[[${user.firstName}]]</td>
 							<td>[[${user.lastName}]]</td>
@@ -112,15 +112,80 @@
 					</tbody>
 				</table>
 			</div>
-			
-			
+		
 		</div>
 	<!--  /CONTAINER -->
+	
+	
+	<!-- Modal -->
+			<div class="modal fade text-center" id="confirmDeleteModal" tabindex="-1">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				    	
+				    	<!-- modal header -->
+				      <div class="modal-header">
+				        <h5 class="modal-title">Delete Confirmation</h5>
+				        
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				        
+				      </div>
+				      
+				      <!--  modal body -->
+				      <div class="modal-body">
+				        <p id="modalBody"></p>
+				      </div>
+				      
+				      <!--  yes/no btn -->
+				      <div class="modal-footer">
+				        <a class="btn btn-danger" href="" id="yesDeleteBtn">Yes</a>
+				        <button type="button" class="btn btn-dark" data-dismiss="modal">No</button>
+				      </div> 
+				      
+				    </div>
+				  </div>
+			</div>
+	<!-- /Modal -->	
+	
+	
+	
+	
 	
 	
 	<!--  FOOTER  -->
 		<div th:replace="partials/_footer :: myfooter"></div>
 	<!--  /FOOTER  -->
+
+
+	<script type="text/javascript">
+	
+	// Delete Button CLICK and Are you sure want to Delete ? 
+		$(document).ready(function () {
+			
+			
+			$(".linkDelete").on("click", function (e) {
+				e.preventDefault();
+				
+				link =$(this);
+				
+				userId = link.attr("userId");			// th:userId="${user.id}"
+				userEmail = link.attr("userEmail");		// th:userEmail = "${user.email}"
+				
+				
+				$("#yesDeleteBtn").attr("href",link.attr("href"));
+				$("#modalBody").text("Are you sure want to  delete this : "+userEmail+ " ID : "+userId+" ?");
+				$("#confirmDeleteModal").modal();
+			});
+			
+			
+			
+			
+		});
+	</script>
+
+
+
 
 </body>
 </html>

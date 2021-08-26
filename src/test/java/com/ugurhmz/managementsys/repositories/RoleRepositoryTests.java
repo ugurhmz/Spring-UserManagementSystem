@@ -45,8 +45,11 @@ public class RoleRepositoryTests {
 	
 		Role assistantRole = new Role("Assistant", "I'm Assistant, I manage questions and reviews");
 		
+		Role managerRole = new Role("Manager", "I'm Manager,Hiring and staffing ,Training new employees.");
 		
-		roleRepository.saveAll(List.of(salesPersonRole, editorRole, shipperRole, assistantRole));
+		
+		
+		roleRepository.saveAll(List.of(salesPersonRole, editorRole, shipperRole, assistantRole,managerRole));
 		
 		
 	}
