@@ -23,3 +23,36 @@ footer {
 -moz-box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
 	
 }
+
+
+
+
+/* navbar */
+
+.navbar-dark .navbar-nav .nav-link {
+		
+			 color:#FFD43B;
+			 font-size:17px;
+			 font-weight:bolder;
+			 border: 1px solid bisque;
+   			 border-radius: 5px 5px;
+   			 margin-left:1rem;
+}
+		
+.navbar-dark .navbar-nav .nav-link:hover {
+	color:#FAB005;
+	font-weight:bolder;
+	font-size:17px;
+	border: 1px solid bisque;
+	background-color:white;
+	transition:.3s all ease-in-out;
+}
+
+
+
+
+
+
+
+
+
