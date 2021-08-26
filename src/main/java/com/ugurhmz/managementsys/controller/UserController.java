@@ -65,14 +65,19 @@ public class UserController {
 	@PostMapping("/users/save") 	// It'll be same in action  th:action="@{/users/save}
 	public String postNewUser(
 			User user, 
-			RedirectAttributes redirectAttributes
+			RedirectAttributes redirectAttributes,
+			Model model
 			) 
 	{
 		
 		userService.save(user);
 		
+		//Message after redirect
+		redirectAttributes.addFlashAttribute("message", "User has been saved  successfully.");
 		
 		return "redirect:/users";
+		
+		
 	}
 	
 	
