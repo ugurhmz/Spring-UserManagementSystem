@@ -61,6 +61,17 @@ public class UserRepositoryTests {
 		
 	}
 	
+	// test all users
+	@Test
+	public void listAllUsersTest() {
+		Iterable<User>  users = userRepo.findAll();
+		
+		for(User user : users) {
+			System.out.println(user);
+		}
+	}
+	
+	
 }
 
 

@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html xlmns:th="http://www.thymeleaf.org">
+
+	<head th:replace="partials/head :: head_section('Welcome Home Page')"></head>
+
 <body>
 
+	<!--  NAVBAR -->
+		<div th:replace="partials/_navbar :: mynavbar"></div>
+	<!--  /NAVBAR -->
 
-<h1>Hello World.</h1>
+
+	<!--  CONTAINER -->
+
+
+	<!--  /CONTAINER -->
+
+	
+	<!--  FOOTER -->
+	<div th:replace="partials/_footer :: myfooter"></div>
+	<!--  /FOOTER -->
+
 </body>
 </html>

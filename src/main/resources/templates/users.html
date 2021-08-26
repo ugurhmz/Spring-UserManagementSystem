@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+
+	<head th:replace="partials/head :: head_section('User Management System')"></head>
+
+<body>
+
+<!--  NAVBAR -->
+	<div th:replace="partials/_navbar :: mynavbar"></div>
+<!--  /NAVBAR -->
+
+
+	<!--  CONTAINER -->
+		<div class="container-fluid">
+		
+			<div class="my-1 row">
+				
+				<div class="display-4 ml-4">
+					<a th:href="@{/users/new-user}" class="text-success fas fa-user-plus"></a>
+			
+				</div>
+					
+				<!--  SEARCH INPUT  -->
+				<div style="margin:1rem auto;" class="col-md-8">
+					<form class="form-inline my-lg-0 ">
+						<input 	class="form-control mr-sm-2 w-75" 
+								type="search" name="keyword" 
+								th:value="${keyword}" 
+								required placeholder="Search..." aria-label="Search" />
+						
+						<button class="btn btn-outline-primary my-2 my-sm-0 fas fa-search" 
+							    style="height:40px;" type="submit">
+							
+						</button>	 
+							
+						<button class="btn btn-outline-dark ml-2" type="button">
+							Clear
+						</button>			 
+								 
+					</form>
+			
+				</div>
+				<!--  SEARCH INPUT  -->
+				
+				
+			</div>
+			
+			<!--  TABLE -->
+			<div class="mt-4">
+				<table class="table table-bordered table-striped table-hover text-center">
+					<thead class="thead-dark">
+					
+						<tr>
+							 <th scope="col">USER ID</th>
+							
+							 <th scope="col">Photos</th>
+							 <th scope="col">FIRST NAME</th>	
+							 <th scope="col">LAST NAME</th>	
+							 <th scope="col">E-MAIL</th>	
+							 <th scope="col">USER ROLES</th>
+							 <th scope="col">STATUS</th>	
+							 <th scope="col">OPERATIONS</th>		
+						</tr>
+						
+					</thead>
+					
+					<tbody	>
+						<tr th:each=" user : ${listUsers}">
+							<td>[[${user.id}]]</td>
+							<td>photos</td>
+							<td>[[${user.firstName}]]</td>
+							<td>[[${user.lastName}]]</td>
+							<td>[[${user.email}]]</td>
+							<td>[[${user.roles}]]</td>
+							<td>[[${user.enabled}]]</td>
+							<td class="col-md-2">
+							
+								<!-- delete btn -->
+									<a 	class="btn btn-outline-danger fas fa-trash-alt linkDelete"
+									th:href="@{'/users/delete/' + ${user.id}}"
+									title="Delete This User"
+									th:userId="${user.id}"
+									th:userEmail="${user.email}">
+									
+								</a>
+								<!-- /delete btn -->
+								
+								<!-- edit btn -->
+									<a  class="btn btn-outline-warning fas fa-edit ml-1"
+										th:href="@{'/users/edit/' + ${user.id}}"
+										title="Edit This User"
+									>
+										
+									</a>
+								<!-- /edit btn -->
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+			</div>
+			
+			
+		</div>
+	<!--  /CONTAINER -->
+	
+	
+	<!--  FOOTER  -->
+		<div th:replace="partials/_footer :: myfooter"></div>
+	<!--  /FOOTER  -->
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 package com.ugurhmz.managementsys.entity;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -70,7 +71,8 @@ public class Role {
 	// toString
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return name;
+		
 	}
 
 	

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+
+
+footer {
+	
+	bottom: 0;
+    position: absolute;
+    width: 100%;
+    clip-path: polygon(26% 36%, 79% 20%, 100% 36%, 100% 100%, 100% 100%, 33% 100%, 0 100%, 0 23%);
+}
