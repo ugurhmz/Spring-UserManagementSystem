@@ -110,6 +110,29 @@ public class UserRepositoryTests {
 	
 	
 	
+	// Search test
+	@Test
+	public void searchTest() {
+		String searchKeyword = "a";
+		
+		int pageNumber = 0;
+		int pageSize = 4;
+		
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<User> page = userRepo.findAll(searchKeyword,pageable);
+		
+		
+		
+		List<User> listUsers = page.getContent();
+		listUsers.forEach(user -> System.out.println("Found user : "+user));
+		
+		assertThat(listUsers.size()).isGreaterThan(0);
+		
+	}
+	
+	
+	
+	
 	
 	
 }
