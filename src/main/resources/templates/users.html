@@ -22,10 +22,15 @@
 					
 				<!--  SEARCH INPUT  -->
 				<div style="margin:1rem auto;" class="col-md-8">
-					<form class="form-inline my-lg-0 ">
+					<form class="form-inline my-lg-0 " th:action="@{/users/page/1}">
+						
+						<input type="hidden" name="sortField" th:value="${sortField}" />
+						<input type="hidden" name="sortDir" th:value="${sortDir}" />
+						
+						
 						<input 	class="form-control mr-sm-2 w-75" 
-								type="search" name="keyword" 
-								th:value="${keyword}" 
+								type="search" name="searchKeyword" 
+								th:value="${searchKeyword}" 
 								required placeholder="Search..." aria-label="Search" />
 						
 						<button class="btn btn-outline-primary my-2 my-sm-0 fas fa-search" 
@@ -187,13 +192,14 @@
 						    	</span>
 						</div> 
 						<div>
-							<nav aria-label="mypagination" >
+				<div th:if="${totalPages > 1}">
+					<nav aria-label="mypagination" >
 							  <ul class="pagination justify-content-center">
 							  
 							     <!-- first page -->
 							  	<li th:class="${ currentPage > 1 ? 'page-item' : 'page-item disabled' }">
 							      <a class="page-link bg-dark text-white" 
-							     	 th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" 
+							     	 th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${ searchKeyword != null ? '&searchKeyword=' + searchKeyword : '' }}" 
 							      tabindex="-1" aria-disabled="true">
 							      	First
 							      </a>				
@@ -204,7 +210,7 @@
 							    <li th:class="${ currentPage > 1 ? 'page-item' : 'page-item disabled' }">
 							    
 							      <a class="page-link"
-							      		 th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" 
+							      		 th:href="@{'/users/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${ searchKeyword != null ? '&searchKeyword=' + searchKeyword : '' }}" 
 							      		tabindex="-1" aria-disabled="true"><span><i class="fas fa-angle-left"></i></span>
 							      		</a>
 							    </li>
@@ -214,7 +220,7 @@
 							    <li th:class="${ currentPage != i ? 'page-item' : 'page-item active' }"
 							    	th:each="i : ${#numbers.sequence(1, totalPages)}">
 							    	
-										    <a class="page-link" th:href="@{'/users/page/' + ${i} +  '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}  }">
+										    <a class="page-link" th:href="@{'/users/page/' + ${i} +  '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}  + ${ searchKeyword != null ? '&searchKeyword=' + searchKeyword : '' }}">
 										    		[[${i}]]
 										    </a>
 							    </li>
@@ -223,7 +229,7 @@
 							    <!-- next -->
 							    <li th:class="${ currentPage < totalPages ? 'page-item' : 'page-item disabled' }">
 							    
-							      <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1 } + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+							      <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1 } + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${ searchKeyword != null ? '&searchKeyword=' + searchKeyword : '' }}">
 							      	<span>
 							      		<i class="fas fa-angle-right"></i>
 							      	</span>
@@ -232,12 +238,13 @@
 							    
 							     <!-- last page -->
 							     <li th:class="${ currentPage < totalPages ? 'page-item' : 'page-item disabled' }">
-							      <a class="page-link bg-dark text-white" th:href="@{'/users/page/'+${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+							      <a class="page-link bg-dark text-white" th:href="@{'/users/page/'+${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${ searchKeyword != null ? '&searchKeyword=' + searchKeyword : '' }}">Last</a>
 							    </li>
 							    
 							  </ul>
 							</nav>
-						</div>
+						</div>	
+					</div>
 					
 						
 				<!--  PAGINATION -->

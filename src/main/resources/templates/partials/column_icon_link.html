@@ -8,7 +8,7 @@
 
 	<th th:fragment="columnThings(fieldName, columnName)">
 		<a  class="text-white"
-			th:href="@{'/users/page/' + ${currentPage} + '?sortField=' +  ${fieldName}  +'&sortDir='  +  ${sortField != fieldName ? sortDir : reverseSortDir}}"															
+			th:href="@{'/users/page/' + ${currentPage} + '?sortField=' +  ${fieldName}  +'&sortDir='  +  ${sortField != fieldName ? sortDir : reverseSortDir} +  ${searchKeyword != null ? '&searchKeyword=' + searchKeyword : ''  }}"															
 			>
 			[[${columnName}]]
 		</a>

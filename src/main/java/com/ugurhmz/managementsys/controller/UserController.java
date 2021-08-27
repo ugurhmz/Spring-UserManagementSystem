@@ -59,7 +59,7 @@ public class UserController {
 	// GET ALL USERS , AFTER SORTING & PAGINATION
 	@GetMapping("/users")
 	public String getFirstPageByPaginate(Model model) {
-		return  sortAndPagination(1, model, "firstName","asc");
+		return  sortAndPagination(1, model, "firstName","asc",null);
 	}
 	
 	
@@ -250,7 +250,11 @@ public class UserController {
 			@PathVariable("pageNumber") int pageNumber,
 			Model model,
 			@Param("sortField") String sortField,
-			@Param("sortDir") String sortDir) 
+			@Param("sortDir") String sortDir,
+			@Param("searchKeyword") String searchKeyword
+			
+			
+			) 
 	{
 		
 		System.out.println("sortField -> "+ sortField);
@@ -258,7 +262,7 @@ public class UserController {
 		
 		
 		
-		Page<User> page = userService.listByPagination(pageNumber, sortField, sortDir);
+		Page<User> page = userService.listByPagination(pageNumber, sortField, sortDir, searchKeyword);
 		List<User> listUsers = page.getContent();
 		
 		
@@ -282,6 +286,7 @@ public class UserController {
 		model.addAttribute("sortField",sortField);
 		model.addAttribute("sortDir",sortDir);
 		model.addAttribute("reverseSortDir",reverseSortDir);
+		model.addAttribute("searchKeyword",searchKeyword);
 		
 		return "users";
 	}
