@@ -45,7 +45,9 @@
 				
 				<!-- Message -->	
 					<div th:if="${message != null}" style="margin:0 auto;width: 80%;">
-						<div class="alert text-center alert-success alert-dismissible fade show" role="alert">
+						<div 
+						th:class="${'alert text-center ' + alertClass}"
+						 role="alert">
 					 		  <strong>[[${message}]] </strong>
 							  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							    <span aria-hidden="true">&times;</span>
@@ -113,7 +115,7 @@
 								
 								<!-- edit btn -->
 									<a  class="btn btn-outline-warning fas fa-edit ml-1"
-										th:href="@{'/users/edit/' + ${user.id}}"
+										th:href="@{'/users/update/' + ${user.id}}"
 										title="Edit This User"
 									>
 										
@@ -191,9 +193,7 @@
 				$("#confirmDeleteModal").modal();
 			});
 			
-			
-			
-			
+		
 		});
 	</script>
 

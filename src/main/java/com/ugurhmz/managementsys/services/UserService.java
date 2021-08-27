@@ -1,6 +1,7 @@
 package com.ugurhmz.managementsys.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,16 +103,30 @@ public class UserService {
 	
 	
 	// DELETE USER
-		public void delete(Integer id) throws UserNotFoundException {
-			Long takeById = userRepository.countById(id);
-			
-			if(takeById == null || takeById == 0) {		// if user id null -> Throw Exception
-				throw new UserNotFoundException("Could not find any user ID : "+id);
-			}
-			
-			// user has been id then delete it.
-			userRepository.deleteById(id);
+	public void delete(Integer id) throws UserNotFoundException {
+		Long takeById = userRepository.countById(id);
+		
+		if(takeById == null || takeById == 0) {		// if user id null -> Throw Exception
+			throw new UserNotFoundException("Could not find any user ID : "+id);
 		}
+		
+		// user has been id then delete it.
+		userRepository.deleteById(id);
+	}
+
+
+	
+	
+	// UPDATE USER  - GET USER BY ID
+	public User getUserById(Integer id) throws UserNotFoundException {
+		//if user has  id 
+		try {
+			return userRepository.findById(id).get();
+			
+		} catch(NoSuchElementException ex) {		// handle exception
+			throw new UserNotFoundException("Could not find any user with ID : "+id); 		//throw our custom exception
+		}
+	}
 	
 	
 	

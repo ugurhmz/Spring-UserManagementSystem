@@ -70,6 +70,8 @@ public class UserController {
 	}
 	
 	
+	
+	
 	// POST NEW USER
 	@PostMapping("/users/save") 	// It'll be same in action  th:action="@{/users/save}
 	public String postNewUser(
@@ -88,6 +90,7 @@ public class UserController {
 			User savedUser = userService.save(user);
 			
 			String uploadDirectory = "user-profile-photos/" + savedUser.getId();
+			
 			FileUploadUtil.cleanDirectory(uploadDirectory);				// Clean old photos
 			FileUploadUtil.saveFile(uploadDirectory, fileName, multipartFile);
 			
@@ -103,18 +106,18 @@ public class UserController {
 		
 		
 		
-		
-		
 		//without photos save
 		userService.save(user);
 		
 		//Message after redirect
 		redirectAttributes.addFlashAttribute("message", "User has been saved  successfully.");
-		
+		redirectAttributes.addFlashAttribute("alertClass","alert-success");
 		return "redirect:/users";
 		
 		
 	}
+	
+	
 	
 	
 	
@@ -127,8 +130,9 @@ public class UserController {
 	{
 		try {
 			userService.delete(id);
-			redirectAttributes.addFlashAttribute("message","The USER ID : "+id+" has been deleted successfully.");
 			
+			redirectAttributes.addFlashAttribute("message","The USER ID : "+id+" has been deleted successfully.");
+			redirectAttributes.addFlashAttribute("alertClass","alert-danger");
 		} catch(UserNotFoundException e) {
 			redirectAttributes.addFlashAttribute("message",e.getMessage());
 		}
@@ -136,8 +140,38 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
+	
+	
+	
 		
+	// GET UPDATE USER
+	@GetMapping("/users/update/{id}")					//coming from users.html ->  <a  class="btn btn-outline-warning fas fa-edit ml-1"th:href="@{'/users/update/' + ${user.id}}"title="Edit This User">
+	public String updateUser(
+			@PathVariable("id") Integer id ,
+			Model model,
+			RedirectAttributes redirectAttribute
+			)
+	{
 		
+		// if user has id 
+		try {
+			User user = userService.getUserById(id);	//Take it user with id
+			
+			List<Role> listAllroles = userService.listAllRoles();
+			
+			model.addAttribute("user",user);			//Send that user to the form
+			model.addAttribute("pageTitle","User Update : "+id);
+			model.addAttribute("roles",listAllroles);	// Send to all roles because user can change.
+			
+			return "newUserForm";
+			
+			
+		} catch(UserNotFoundException ex) {		//if user has not id, Throw Exception
+			redirectAttribute.addFlashAttribute("message",ex.getMessage());
+			return "redirect:/users";
+		}
+	
+	}
 		
 
 	
