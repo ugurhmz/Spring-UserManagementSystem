@@ -72,6 +72,19 @@ public class UserRepositoryTests {
 	}
 	
 	
+	// test update user
+	@Test
+	public void updateUserTest() {
+		User userSelin = userRepo.findById(1).get();
+		
+		userSelin.setFirstName("Seliinn67");
+		userSelin.setEnabled(false);
+		
+		userRepo.save(userSelin);
+	}
+	
+	
+	
 }
 
 
