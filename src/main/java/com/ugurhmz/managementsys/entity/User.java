@@ -170,4 +170,26 @@ public class User {
 	
 	
 	
+	// User photos path 
+	@Transient
+	public String getPhotosImagePath() {
+		
+		if ( this.id == null || this.photos == null) {
+			return "/images/default-user.png";
+		}
+		
+		return "/user-profile-photos/" + this.id + "/" + this.photos;
+	}
+	
+	/* Not 
+	 * 
+	 * *Veritabanında belirlediğimiz kolonun oluşturulmasını istemiyorsak 
+	 * @Transient anotasyonunu kullanıyoruz.
+	 * Tablo içerisine kolon olarak eklenmesini istiyorsak Basic anotasyonu ile bunu belirtebiliriz*/
+	
+	  
+	
+	
+	
+	
 }

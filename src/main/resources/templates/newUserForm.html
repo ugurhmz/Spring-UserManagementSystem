@@ -103,18 +103,18 @@
 					</fieldset>
 					
 					<fieldset class="form-group row">
-						<legend class="col-form-label col-sm-2 float-sm-left pt-0">Photos</legend>
-						
-						<div class="form-group col-sm-8">
-							<input  type="hidden" th:field="*{photos}" />
-							<input  type="file" accept="image/png, image/jpeg" name="imageInput" 
-									class="form-control-file w-50" id="fileImage" />
-							
-							<img id="thumbnail" alt="Default Photo" class="img-fluid mt-4 myPhoto" />
-							
-						</div>
-					
-					</fieldset>
+								    <legend class="col-form-label col-sm-2 float-sm-left pt-0">Photos</legend>
+								    
+								   <div class="form-group col-md-8">
+								   <input type="hidden" th:field="*{photos}"/>
+								   
+								    <input type="file"  accept="image/png, image/jpeg" name="imageInput" class="form-control-file w-50" id="fileImage" />
+  									
+  									<img id="thumbnail"   alt="Default Photo" class="img-fluid mt-4 myPhoto"
+  										 th:src="@{${user.photosImagePath}}"
+  									/>
+  								 </div>
+					  </fieldset>
 					
 					<!--  btn save & cancel -->
 					<div class="form-group row text-center">
@@ -179,6 +179,63 @@
 
 	
 	<script type="text/javascript">
+	
+	
+	$(document).ready(function () {
+		
+		$('.myPhoto').css("height", 180); // Units are assumed to be pixels
+		$('.myPhoto').css("width", 160);
+		$('.myPhoto').css('object-fit','cover');
+		
+		
+		// Cancel Button Click  -> Redirect in /users
+		$("#cancelBtn").on("click", function () {
+			window.location = "[[@{/users}]]";
+			
+		});
+			
+		
+		
+		// FILE UPLOAD
+		$("#fileImage").change(function () {
+			fileSize = this.files[0].size;
+			
+			if(fileSize > 1048576 ){	// 1024 x 1024 = 1048576
+				this.setCustomValidity("Image must be less than 1 MB!!");
+				this.reportValidity();
+				
+			
+				
+			} 
+			else {
+					this.setCustomValidity("");
+						
+					$('.myPhoto').css("height", 180); // Units are assumed to be pixels
+					$('.myPhoto').css("width", 160);
+					$('.myPhoto').css('object-fit','cover');
+					
+					
+					showImageThumbnail(this);
+			}
+			
+		
+			
+		});
+	});
+
+	
+	// FILE UPLOAD
+	function showImageThumbnail(fileInput) {
+	var file = fileInput.files[0];
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$("#thumbnail").attr("src",e.target.result);
+	}
+	
+	reader.readAsDataURL(file);
+}
+
+	
 		
 		 // AJAX  isEmailUnique and Modal message
 		 function checkEmailUnique(form){

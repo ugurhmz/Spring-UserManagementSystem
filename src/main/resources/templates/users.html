@@ -11,7 +11,7 @@
 
 
 	<!--  CONTAINER -->
-		<div class="container-fluid" style="height:62.29vh;">
+		<div class="container-fluid" >
 		
 			<div class="my-1 row">
 				
@@ -80,7 +80,20 @@
 					<tbody	>
 						<tr th:each=" user : ${listUsers}">
 							<td class="font-weight-bolder">[[${user.id}]]</td>
-							<td>photos</td>
+							
+							<td>
+								<!--  if photos null -->
+								<span th:if="${user.photos == null}">
+									<i class="fas fa-portrait fa-3x text-secondary"></i>
+								</span>
+								
+								<!--  if not null photos -->
+								<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width:120px;height:110px;" />                                            
+									
+								</span>
+								
+							</td>
+							
 							<td>[[${user.firstName}]]</td>
 							<td>[[${user.lastName}]]</td>
 							<td>[[${user.email}]]</td>
