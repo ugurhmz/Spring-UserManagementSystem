@@ -100,28 +100,50 @@
 							<td>[[${user.lastName}]]</td>
 							<td>[[${user.email}]]</td>
 							<td>[[${user.roles}]]</td>
-							<td>[[${user.enabled}]]</td>
-							<td class="col-md-2">
 							
-								<!-- delete btn -->
-									<a 	class="btn btn-outline-danger fas fa-trash-alt linkDelete"
-									th:href="@{'/users/delete/' + ${user.id}}"
-									title="Delete This User"
-									th:userId="${user.id}"
-									th:userEmail="${user.email}">
+							<!--  status enable/disable -->
+							<td>
+								<a 
+									th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x text-success"
+									th:href="@{'/users/' + ${user.id} + '/enable/false'}"
+									title="Disable This User"></a>
 									
-								</a>
-								<!-- /delete btn -->
+								<a  th:if="${user.enabled != true}" class="fas fa-circle fa-2x text-gray"
+									th:href="@{'/users/' + ${user.id} + '/enable/true'}"
+									title="Enable This User"> 
 								
-								<!-- edit btn -->
-									<a  class="btn btn-outline-warning fas fa-edit ml-1"
-										th:href="@{'/users/update/' + ${user.id}}"
-										title="Edit This User"
-									>
+								</a>	
+									
+							</td>
+							<!--  /status enable/disable -->
+							
+							
+							<!-- operations delete/edit -->
+							
+								<td class="col-md-2">
+								
+									<!-- delete btn -->
+										<a 	class="btn btn-outline-danger fas fa-trash-alt linkDelete"
+										th:href="@{'/users/delete/' + ${user.id}}"
+										title="Delete This User"
+										th:userId="${user.id}"
+										th:userEmail="${user.email}">
 										
 									</a>
-								<!-- /edit btn -->
-							</td>
+									<!-- /delete btn -->
+									
+									<!-- edit btn -->
+										<a  class="btn btn-outline-warning fas fa-edit ml-1"
+											th:href="@{'/users/update/' + ${user.id}}"
+											title="Edit This User"
+										>
+											
+										</a>
+									<!-- /edit btn -->
+								</td>
+								
+							<!-- /operations delete/edit -->
+							
 						</tr>
 					
 					</tbody>

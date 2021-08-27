@@ -1,5 +1,6 @@
 package com.ugurhmz.managementsys.repositories;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +23,19 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	// FOR isEmailUnique
 	@Query("SELECT u FROM  User u WHERE u.email = :email")
 	public User getByUserEmail(@Param("email") String email);
+	
+	
+	
+	// Status enabled/disabled
+	@Query("UPDATE User u SET  u.enabled = ?2 WHERE u.id=?1")
+	@Modifying
+	public void userStatusEnableDisable(Integer id, boolean enabled);
+	
+	
+	/* NOT
+	 * The @Modifying annotation is used to enhance the @Query annotation to execute not only SELECT
+	 *  queries but also INSERT, UPDATE, DELETE, and even DDL queries.
+	 * */
 	
 	
 }

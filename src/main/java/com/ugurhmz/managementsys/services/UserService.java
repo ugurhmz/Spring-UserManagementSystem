@@ -3,6 +3,8 @@ package com.ugurhmz.managementsys.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.ugurhmz.managementsys.repositories.UserRepository;
 
 
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -127,6 +130,27 @@ public class UserService {
 			throw new UserNotFoundException("Could not find any user with ID : "+id); 		//throw our custom exception
 		}
 	}
+	
+	
+	
+	
+	
+	// USER STATUS UPDATE  -  ENABLED/DISABLED
+	public void userStatus(Integer id, boolean enabled) {
+		userRepository.userStatusEnableDisable(id, enabled);
+	}
+	
+	
+	
+	/**Not 
+	Transaction işlemi bir veya birden fazla sorguların(SQL) aynı süreçte işlem görmesidir.
+	Bu sayede eğer istenmeyen bir durum oluştuğunda bütün bu süreci geri alabiliriz(rollback),
+	yada hepsi aynı anda onaylayabiliriz
+	 */
+	
+	
+	
+	
 	
 	
 	

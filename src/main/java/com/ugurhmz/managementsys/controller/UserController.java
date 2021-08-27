@@ -176,6 +176,25 @@ public class UserController {
 
 	
 	
+	//STATUS ENABLE / DISABLE
+	@GetMapping("/users/{id}/enable/{status}")
+	public String userStatus(
+			@PathVariable("id") Integer id,
+			@PathVariable("status") boolean enabled,
+			RedirectAttributes redirectAttribute
+			)
+	{
+		userService.userStatus(id, enabled);
+		
+		String statusInfo = enabled ? "enabled" : "disabled";
+		String statusMessage = "The USER ID : "+id + " -> "+statusInfo;
+		
+		redirectAttribute.addFlashAttribute("alertClass","alert-info");
+		redirectAttribute.addFlashAttribute("message",statusMessage);
+		
+		return "redirect:/users";
+	}
+	
 	
 	
 	
