@@ -21,7 +21,7 @@
 			
 			
 				<!-- form -->
-				<form th:action="@{/users/save}" method="POST" style="max-width:750px;margin:0 auto;"
+				<form th:action="@{/users/save}" method="POST" style="max-width:750px;margin:0 auto;margin-bottom:5rem !important;"
 					  enctype="multipart/form-data"
 					  th:object="${user}"
 					  onsubmit="return checkEmailUnique(this);">

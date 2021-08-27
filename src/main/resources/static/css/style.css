@@ -6,8 +6,8 @@
 .footer-background {
 	
 	
-  	position:relative;
-  	margin-top:100px !important;
+  	position:absolute;
+  	bottom:-2rem;
     width: 100%;
     clip-path: polygon(26% 36%, 79% 20%, 100% 36%, 100% 100%, 100% 100%, 33% 100%, 0 100%, 0 23%);
 }
@@ -38,6 +38,7 @@
 			 border: 1px solid bisque;
    			 border-radius: 5px 5px;
    			 margin-left:1rem;
+   			
 }
 		
 .navbar-dark .navbar-nav .nav-link:hover {
@@ -48,6 +49,11 @@
 	background-color:white;
 	transition:.3s all ease-in-out;
 }
+nav {
+	 clip-path: polygon(0 0, 100% 0, 100% 100%, 69% 96%, 32% 100%, 0 100%, 0% 30%);
+	
+}
+
 
 
 .text-gray {

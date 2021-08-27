@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -55,10 +56,10 @@ public class UserController {
 	
 	
 	
-	// GET ALL USERS WITH PAGINATION
+	// GET ALL USERS , AFTER SORTING & PAGINATION
 	@GetMapping("/users")
 	public String getFirstPageByPaginate(Model model) {
-		return listByPagination(1, model);
+		return  sortAndPagination(1, model, "firstName","asc");
 	}
 	
 	
@@ -212,7 +213,7 @@ public class UserController {
 	
 	
 	
-	// PAGINATION
+    /*	// PAGINATION BEFORE SORTING
 	@GetMapping("/users/page/{pageNumber}")
 	public String listByPagination(
 			@PathVariable("pageNumber") int pageNumber,
@@ -239,7 +240,57 @@ public class UserController {
 		
 		
 		return "users";
+	}*/
+	
+	
+	
+	// AFTER SORTING -> PAGINATION
+	@GetMapping("/users/page/{pageNumber}")
+	public String sortAndPagination(
+			@PathVariable("pageNumber") int pageNumber,
+			Model model,
+			@Param("sortField") String sortField,
+			@Param("sortDir") String sortDir) 
+	{
+		
+		System.out.println("sortField -> "+ sortField);
+		System.out.println("sortDir -> "+sortDir);
+		
+		
+		
+		Page<User> page = userService.listByPagination(pageNumber, sortField, sortDir);
+		List<User> listUsers = page.getContent();
+		
+		
+		long startCount = (pageNumber - 1) * UserService.USERS_PER_PAGE + 1;
+		long endCount = startCount  + UserService.USERS_PER_PAGE -1 ;
+		
+		
+		if(endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+		
+		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		
+		model.addAttribute("currentPage",pageNumber);
+		model.addAttribute("startCount",startCount);
+		model.addAttribute("endCount",endCount);
+		model.addAttribute("totalPages",page.getTotalPages());
+		model.addAttribute("totalElements",page.getTotalElements());
+		model.addAttribute("listUsers",listUsers);
+		model.addAttribute("sortField",sortField);
+		model.addAttribute("sortDir",sortDir);
+		model.addAttribute("reverseSortDir",reverseSortDir);
+		
+		return "users";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -113,6 +114,8 @@ public class UserService {
 			return true;
 		}
 	
+		
+		
 	
 	// DELETE USER
 	public void delete(Integer id) throws UserNotFoundException {
@@ -159,11 +162,31 @@ public class UserService {
 	
 	
 	
-	// PAGINATION
+	/*  // PAGINATION BEFORE SORT
 	public Page<User> listByPagination(int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum - 1 , USERS_PER_PAGE );
 		return userRepository.findAll(pageable);
+	}*/
+	
+	
+	
+	
+	
+	// PAGINATION WITH SORTING
+	public Page<User> listByPagination(int pageNumber, String sortField, String sortDir){
+		
+		// for sort
+		Sort sort = Sort.by(sortField);
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+		
+		
+		// for paginate
+		Pageable pageable = PageRequest.of(pageNumber - 1 , USERS_PER_PAGE, sort);
+		
+		
+		return userRepository.findAll(pageable);
 	}
+	
 	
 	
 	
