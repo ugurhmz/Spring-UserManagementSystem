@@ -34,7 +34,13 @@ public class UserController {
 	
 	// GET INDEX PAGE
 	@GetMapping("")
-	public String getIndex() {
+	public String getIndex(User user, Model model) {
+		
+		
+		model.addAttribute("roleSize",userService.listAllRoles().size());
+		model.addAttribute("allRoles",userService.listAllRoles());
+		model.addAttribute("userSize",userService.listAllUsers().size());
+		model.addAttribute("allUsers",userService.listAllUsers());
 		
 		return "index";
 	}

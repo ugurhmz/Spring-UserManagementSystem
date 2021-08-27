@@ -13,7 +13,60 @@
 	<!--  CONTAINER -->
 		<div class="container-fluid" style="height:62.8vh;">
 		
-		</div>
+		
+			
+			
+			
+	<div class="row rowStyle">
+	      <div class="col-md-4">
+	            <div class="card text-center" >
+	            
+	            	<div class="card-header text-center" style="font-size:1.4rem;">Number of all Roles : <span><strong>[[${roleSize}]]</strong></span></div>
+	            
+	                  <div class="card-body">
+	                  	<div th:each="role : ${allRoles}">
+							<h5>[[${role.name}]]</h5>
+						</div>
+                     
+	                        
+	                  </div>
+                 </div>
+	      </div>
+	      
+	     <div class="col-md-4">
+	            <div class="card text-center" >
+	            
+	            	<div class="card-header text-center">Number of all Users  : <span><strong>[[${userSize}]]</strong></span></div>
+	            
+	                  <div class="card-body">
+	                  	<div th:each="user : ${allUsers}">
+							<h5>[[${user.id}]]  -   [[${user.firstName}]]</h5>
+						</div>
+                     
+	                        
+	                  </div>
+                 </div>
+	      </div>
+	      
+	</div>
+		
+  </div>
+		
+		
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	<!--  /CONTAINER -->
 

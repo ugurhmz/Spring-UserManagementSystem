@@ -180,7 +180,7 @@
 		
 		<!-- PAGINATION -->
 					
-						<div class="text-center my-1" th:if="${totalElements > 0}">
+						<div class="text-center my-1 " th:if="${totalElements > 0}">
 								<span>
 							    Showing users #	[[${startCount}]] to [[${endCount}]]  of [[${totalElements}]]
 						    	</span>
@@ -192,7 +192,7 @@
 						    	</span>
 						</div> 
 						<div>
-				<div th:if="${totalPages > 1}">
+				<div th:if="${totalPages > 1}" >
 					<nav aria-label="mypagination" >
 							  <ul class="pagination justify-content-center">
 							  
