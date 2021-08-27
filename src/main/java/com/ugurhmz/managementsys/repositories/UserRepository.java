@@ -3,6 +3,7 @@ package com.ugurhmz.managementsys.repositories;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import com.ugurhmz.managementsys.entity.User;
 
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
 
 	
 	// countById KULLAN -> find yerine bu kullanılır, Kendin isim verirsen HATA ALIRSIN
@@ -32,10 +33,21 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	public void userStatusEnableDisable(Integer id, boolean enabled);
 	
 	
-	/* NOT
-	 * The @Modifying annotation is used to enhance the @Query annotation to execute not only SELECT
-	 *  queries but also INSERT, UPDATE, DELETE, and even DDL queries.
-	 * */
+		/* NOT
+		 * The @Modifying annotation is used to enhance the @Query annotation to execute not only SELECT
+		 *  queries but also INSERT, UPDATE, DELETE, and even DDL queries.
+		 * */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

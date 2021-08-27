@@ -2,12 +2,17 @@ package com.ugurhmz.managementsys.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
 import com.ugurhmz.managementsys.entity.Role;
@@ -72,6 +77,7 @@ public class UserRepositoryTests {
 	}
 	
 	
+	
 	// test update user
 	@Test
 	public void updateUserTest() {
@@ -82,6 +88,27 @@ public class UserRepositoryTests {
 		
 		userRepo.save(userSelin);
 	}
+	
+	
+	
+	// Pagination test
+	@Test
+	public void paginationUserListTest() {
+		int pageNumber = 0;
+		int pageSize = 4;
+		
+		// import domain...
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<User> page = userRepo.findAll(pageable);
+		
+		List<User> listUsers = page.getContent();
+		listUsers.forEach( user -> System.out.println(user+ " "));
+		
+		assertThat(listUsers.size()).isEqualTo(pageSize);
+	}
+
+	
+	
 	
 	
 	
