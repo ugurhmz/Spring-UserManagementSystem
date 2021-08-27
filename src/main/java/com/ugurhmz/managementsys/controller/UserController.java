@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,6 +40,8 @@ public class UserController {
 	
 	
 	
+	
+	/*ALL USERS -> BEFORE PAGINATION 
 	// GET ALL USERS
 	@GetMapping("/users")
 	public String getAllUsers(Model model) {
@@ -47,6 +50,18 @@ public class UserController {
 		model.addAttribute("listUsers",listUsers);
 		return "users";
 	}
+	*/
+	
+	
+	
+	
+	// GET ALL USERS WITH PAGINATION
+	@GetMapping("/users")
+	public String getFirstPageByPaginate(Model model) {
+		return listByPagination(1, model);
+	}
+	
+	
 	
 	
 	
@@ -197,5 +212,54 @@ public class UserController {
 	
 	
 	
+	// PAGINATION
+	@GetMapping("/users/page/{pageNumber}")
+	public String listByPagination(
+			@PathVariable("pageNumber") int pageNumber,
+			Model model) 
+	{
+		Page<User> page = userService.listByPagination(pageNumber);
+		List<User> listUsers = page.getContent();
+		
+		long startCount = (pageNumber - 1) * UserService.USERS_PER_PAGE + 1;
+		long endCount = startCount + UserService.USERS_PER_PAGE - 1 ;
+		
+		if(endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+		
+		model.addAttribute("currentPage",pageNumber);
+		model.addAttribute("startCount", startCount);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalElements", page.getTotalElements());
+		model.addAttribute("listUsers", listUsers);
+		
+		
+		
+		
+		return "users";
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
