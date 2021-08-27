@@ -38,7 +38,7 @@
 							
 						</button>	 
 							
-						<button class="btn btn-outline-dark ml-2" type="button">
+						<button class="btn btn-outline-dark ml-2" type="button"  onclick="clearFilterBtn()">
 							Clear
 						</button>			 
 								 
@@ -86,21 +86,21 @@
 						-->
 						<!--  Usage fragment -->
 							<tr>
-								<th th:replace="partials/column_icon_link :: columnThings('id','USER ID')"></th>
+								<th th:replace="partials/column_icon_link :: columnThings('id','USER ID')" />
 						
-								<th >PHOTOS</th>
+								<th scope="col">PHOTOS</th>
 							
-								<th  th:replace="partials/column_icon_link :: columnThings('firstName','FIRST NAME')"></th>
+								<th  th:replace="partials/column_icon_link :: columnThings('firstName','FIRST NAME')"/>
 						
-								<th th:replace="partials/column_icon_link :: columnThings('lastName','LAST NAME')"></th>
+								<th th:replace="partials/column_icon_link :: columnThings('lastName','LAST NAME')"/>
 						
-								<th th:replace="partials/column_icon_link :: columnThings('email','E-MAIL')"></th>
+								<th th:replace="partials/column_icon_link :: columnThings('email','E-MAIL')" />
 						
-								<th  >ROLES</th>
+								<th >ROLES</th>
 						
-								<th  th:replace="partials/column_icon_link :: columnThings('enabled','STATUS')"></th>
+								<th  th:replace="partials/column_icon_link :: columnThings('enabled','STATUS')" />
 							
-								<th>
+								<th scope="col">
 									OPERATIONS 
 								</th>
 							</tr>
@@ -328,6 +328,16 @@
 			
 		
 		});
+	
+	// Clear Filter Button
+		function clearFilterBtn(){
+			//window.location="[[@{/users}]]"
+			window.location.href='/users/page/1?sortField=id&sortDir=asc';		// We sorted by id 
+		}
+	
+	
+	
+	
 	</script>
 
 

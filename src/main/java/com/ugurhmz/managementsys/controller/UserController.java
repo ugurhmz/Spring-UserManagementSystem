@@ -128,8 +128,15 @@ public class UserController {
 		//Message after redirect
 		redirectAttributes.addFlashAttribute("message", "User has been saved  successfully.");
 		redirectAttributes.addFlashAttribute("alertClass","alert-success");
-		return "redirect:/users";
 		
+		
+		//redirect the registered user in the table
+		String firstPartOfEmail = user.getEmail().split("@")[0];		//@  gördüğün yerden ayır, onun 0. indeksini al. Yani @gmail.com onda önceki olan ismi alıyor, onuda searchKeyword olarak veriyorki direk sanki arayıp onu bulmuş gibi redirect yapıyoruz 
+		
+		System.out.println(user.getEmail().split("@"));
+		System.out.println("firstPartOfEmail : "+firstPartOfEmail);
+		
+		return  "redirect:/users/page/1?sortField=id&sortDir=asc&searchKeyword=" + firstPartOfEmail;
 		
 	}
 	
