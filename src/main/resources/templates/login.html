@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+
+	<head th:replace="partials/head :: head_section('Welcome Login Page')"></head>
+
+	<style>
+		.loginForm {
+			 border-radius: 50px !important;
+			 font-weight:bolder;
+			 background: white;
+			 box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+			-webkit-box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+			-moz-box-shadow: -1px 10px 27px 0px rgba(0,0,0,0.75);
+			 margin-bottom:12.25rem;
+			 margin-left:5rem;
+	}
+	
+	
+	</style>
+
+
+<body>
+
+
+
+	<!--  CONTAINER -->
+		<div class="container-fluid text-center">
+				<div class="row">
+					
+					<!--  image column -->
+					<div class="col-md-4">
+						<img th:src="@{/images/loginmng.PNG}" />
+					</div>
+				
+					
+					
+					
+					
+					
+					<!--  form column -->
+					<div class="col-md-6" style="margin-left: 12rem; margin-top: 7rem;">
+					
+								<!--  login err message -->
+									<div th:if="${param.error}">
+										<p class="text-danger ">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+									</div>
+			
+								<!--  logout err message -->
+									<div th:if="${param.logout}">
+										<p class="text-warning bg-dark">You have been logged out.</p>
+									</div>
+			
+					
+					
+					
+					
+								<form th:action="@{/login}" method="POST">
+								
+									<div class="p-4  ml-3 loginForm" >
+										<p>Ugur User Management System <i class="fas fa-forward fa-2x offset-1"></i></p>
+										
+										<p>
+											<input type="text" name="email" required class="form-control" placeholder="E-mail" />
+										</p>
+										
+										 <p>
+										 	<input type="password" name="password" required class="form-control" placeholder="Password" />
+										 </p>
+										 
+										 <p>
+										 	<input type="checkbox" name="remember-me" id="myCheck"/>
+										 		<label  for="myCheck"> &nbsp;Remember Me</label>
+										
+										 </p>
+										 
+										 
+										 <p>
+										 	<input type="submit" value="Login" class="btn btn-primary" />
+										 </p>
+										
+									</div>
+				
+								</form>
+					</div>
+				
+				</div>
+		</div>
+	<!--  /CONTAINER -->
+	
+	
+	
+	
+	
+	
+	
+	<!--  FOOTER  -->
+		<div th:replace="partials/_footer :: myfooter"></div>
+	<!--  /FOOTER  -->
+
+
+
+
+	
+	<script type="text/javascript">
+	
+	
+	$(document).ready(function () {
+		
+		$('.myPhoto').css("height", 180); // Units are assumed to be pixels
+		$('.myPhoto').css("width", 160);
+		$('.myPhoto').css('object-fit','cover');
+		
+		
+		// Cancel Button Click  -> Redirect in /users
+		$("#cancelBtn").on("click", function () {
+			window.location = "[[@{/users}]]";
+			
+		});
+			
+		
+		
+		// FILE UPLOAD
+		$("#fileImage").change(function () {
+			fileSize = this.files[0].size;
+			
+			if(fileSize > 1048576 ){	// 1024 x 1024 = 1048576
+				this.setCustomValidity("Image must be less than 1 MB!!");
+				this.reportValidity();
+				
+			
+				
+			} 
+			else {
+					this.setCustomValidity("");
+						
+					$('.myPhoto').css("height", 180); // Units are assumed to be pixels
+					$('.myPhoto').css("width", 160);
+					$('.myPhoto').css('object-fit','cover');
+					
+					
+					showImageThumbnail(this);
+			}
+			
+		
+			
+		});
+	});
+
+	
+	// FILE UPLOAD
+	function showImageThumbnail(fileInput) {
+	var file = fileInput.files[0];
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$("#thumbnail").attr("src",e.target.result);
+	}
+	
+	reader.readAsDataURL(file);
+}
+
+	
+		
+		 // AJAX  isEmailUnique and Modal message
+		 function checkEmailUnique(form){
+			 url = "[[@{/users/check-email-user}]]"; // RestController'de @PostMapping'teki url'yi al.
+			 	userEmail = $("#email").val();
+				userId = $("#id").val();
+				csrfValue = $("input[name='_csrf']").val();
+				
+				params = {
+						id : userId,
+						email : userEmail,
+						_csrf : csrfValue
+				};
+			 	
+			 	
+			 	$.post(url, params, function (response) {
+			 		if( response == "YES"){   // coming from @RestController    -> Restten gelen email uniquq ise formu submit et.
+			 			form.submit();
+			 		
+			 		} else if( response == "NO"){
+			 				showModalMessage(userEmail + " is already use!!!","Check your e-mail address");
+			 		} else {
+			 			showModalMessage("ERR!");
+			 		}
+			 		
+			 		
+			 		
+			 	}).fail( function () {
+			 		
+			 		showModalMessage("Error","Could not connect to the server");
+			 	});
+			 	
+			 return false;
+		 }
+		
+	
+		// SHOW MODAL MESSAGE , COMING AJAX
+		function showModalMessage(title,message){
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+	
+	
+	
+	
+	</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+

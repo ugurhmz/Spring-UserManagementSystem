@@ -47,6 +47,15 @@ public class UserService {
 	}
 	
 	
+	// CREATE ROLE
+	public Role saveRole(Role role) {
+		
+		return roleRepository.save(role);
+	}
+	
+	
+	
+	
 	// CREATE & UPDATE
 	public User save(User user) {
 		boolean isUpdateUser = (user.getId() != null);

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
+
+	<head th:replace="partials/head :: head_section('Create New Role')"></head>
+
+<body>
+
+<!--  NAVBAR -->
+	<div th:replace="partials/_navbar :: mynavbar"></div>
+<!--  /NAVBAR -->
+
+
+
+
+
+	<!--  CONTAINER -->
+		<div class="container-fluid">
+		
+			<div class="my-4 createForm col-md-8 p-4">
+				<h1 class="text-center">[[${pageTitle}]]</h1>
+			
+			
+				<!-- form -->
+				<form   th:action="@{/users/save-role}"  method="POST" style="max-width:750px;margin:0 auto;margin-bottom:5rem !important;"
+					 	th:object=${role} >
+					  
+					  <input type="hidden" th:field="*{id}"  />
+						
+					  <div class="form-group row">
+					  		<label for="roleNameInput" class="col-sm-2 col-form-label">Role Name</label>
+					 		
+					 		<div class="col-sm-10">
+					 			<input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="50"/>
+					 		</div> 
+					  </div>
+					  
+					  <div class="form-group row">
+					    <label for="exampleFormControlTextarea1">Role Description</label>
+					    
+					    <div class="col-sm-10">
+					    	<textarea class="form-control" th:field="*{description}" rows="3" required maxlength="200" />
+					    </div>	
+  					</div>
+					
+					<!--  btn save & cancel -->
+					<div class="form-group row text-center">
+					
+						<!--  save submit -->
+						<div class="offset-5">
+							<input type="submit" class="btn btn-success" value="Save" />
+						</div>
+						
+						<!--  cancel btn -->
+						<div class="ml-3">
+							<input type="button" class="btn btn-dark" id="cancelBtn" value="Cancel" />
+						</div>		
+					</div>
+					
+					
+				</form>
+			
+			<!-- Modal -->
+					<div class="modal fade text-center" id="modalDialog" tabindex="-1">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						    
+						      <div class="modal-header">
+						        <h5 class="modal-title text-danger" id="modalTitle"></h5>
+						        
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						        
+						      </div>
+						      
+						      <div class="modal-body text-info">
+						        <h5 id="modalBody"></h5>
+						      </div>
+						      
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						      
+						    </div>
+						  </div>
+					</div>
+				<!-- /Modal -->	
+			</div>	
+		</div>
+	<!--  /CONTAINER -->
+	
+	
+	
+	
+	
+	
+	
+	<!--  FOOTER  -->
+		<div th:replace="partials/_footer :: myfooter"></div>
+	<!--  /FOOTER  -->
+
+
+
+
+	
+	<script type="text/javascript">
+	
+	
+	$(document).ready(function () {
+		
+		// Cancel Button Click  -> Redirect in /users
+		$("#cancelBtn").on("click", function () {
+			window.location = "[[@{/users}]]";
+			
+		});
+			
+		
+	});
+
+	
+	
+
+	
+	
+	 // AJAX  isEmailUnique and Modal message
+	 function checkEmailUnique(form){
+		 url = "[[@{/users/check-email-user}]]"; // RestController'de @PostMapping'teki url'yi al.
+		 	userEmail = $("#email").val();
+			userId = $("#id").val();
+			csrfValue = $("input[name='_csrf']").val();
+			
+			params = {
+					id : userId,
+					email : userEmail,
+					_csrf : csrfValue
+			};
+		 	
+		 	
+		 	$.post(url, params, function (response) {
+		 		if( response == "YES"){   // coming from @RestController    -> Restten gelen email uniquq ise formu submit et.
+		 			form.submit();
+		 		
+		 		} else if( response == "NO"){
+		 				showModalMessage(userEmail + " is already use!!!","Check your e-mail address");
+		 		} else {
+		 			showModalMessage("ERR!");
+		 		}
+		 		
+		 		
+		 		
+		 	}).fail( function () {
+		 		
+		 		showModalMessage("Error","Could not connect to the server");
+		 	});
+		 	
+		 return false;
+	 }
+	
+	
+		// SHOW MODAL MESSAGE , COMING AJAX
+		function showModalMessage(title,message){
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+	
+	
+	
+	
+	</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+

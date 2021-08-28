@@ -32,6 +32,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
+	
+	
+	
 	// GET INDEX PAGE
 	@GetMapping("")
 	public String getIndex(User user, Model model) {
@@ -44,6 +48,41 @@ public class UserController {
 		
 		return "index";
 	}
+	
+	
+	
+	@GetMapping("/login")
+	public String getLoginPage() {
+		return "login";
+	}
+	
+	
+	// GET NEW ROLE
+	@GetMapping("/users/add-role")
+	public String getRolePage(Model model) {
+		
+		Role role = new Role();
+		
+		model.addAttribute("role",role);
+		model.addAttribute("pageTitle","Create New Role");
+		
+		
+		
+		return "newRoleForm";
+	}
+	
+	
+	// POST ROLE
+	@PostMapping("/users/save-role") // it'll be same th:action="@{/users/save-role}"
+	public String saveRole(Role role, RedirectAttributes redirectAttributes) {
+		
+		userService.saveRole(role);
+		return "redirect:/users/add-role";
+	}
+	
+	
+	
+	
 	
 	
 	
