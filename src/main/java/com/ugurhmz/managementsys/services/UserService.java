@@ -57,42 +57,37 @@ public class UserService {
 	
 	
 	// CREATE & UPDATE
-	public User save(User user) {
-		boolean isUpdateUser = (user.getId() != null);
-		
-			// it means it has user id update process -> User id'ye sahipse demekki güncelleme işlemi
-			if(isUpdateUser) {
+		public User save(User user) {
+			boolean isUpdatingUser = (user.getId() != null);
+			
+			if(isUpdatingUser) {
 				User existingUser = userRepository.findById(user.getId()).get();
 				
-				
-					// User passwordu boşsa, demekki password değişmemiş, o halde var olan passwordu kullan.
-					if(user.getPassword().isEmpty()) {
-						user.setPassword(existingUser.getPassword());
-					}
+				if(user.getPassword().isEmpty()) {
+					user.setPassword(existingUser.getPassword());
 					
-					//password değişmişse güncelleme yaparken, onuda encode et.
-					else {
-						encodePassword(user);
-					}
+				} else {
+					encodePassword(user);
+				}
 				
 			}
-				
-			// it has not user id, NEW USER process  -> User  id'si null ise yeni kullanıcı önce pw encode,sonra db kay
 			else {
 				encodePassword(user);
 			}
 			
-			
-			
 			return userRepository.save(user);
-	}
-	
-	
-	// password Encode
-	public void encodePassword(User user) {
-		String encodedPassword =   passwordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
-	}
+		}
+		
+		
+		
+
+		//password Encode
+		private void encodePassword(User user) {
+			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
+			
+		}
+		
 
 	
 	

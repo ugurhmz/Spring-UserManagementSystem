@@ -29,6 +29,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 	
 	
 	
+	
+	
+	
 	// FOR Status enabled/disabled
 	@Query("UPDATE User u SET  u.enabled = ?2 WHERE u.id=?1")
 	@Modifying

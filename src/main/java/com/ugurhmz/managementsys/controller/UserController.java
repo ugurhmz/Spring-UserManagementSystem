@@ -33,28 +33,11 @@ public class UserController {
 	private UserService userService;
 	
 	
-	
-	
-	
-	// GET INDEX PAGE
-	@GetMapping("")
-	public String getIndex(User user, Model model) {
 		
-		
-		model.addAttribute("roleSize",userService.listAllRoles().size());
-		model.addAttribute("allRoles",userService.listAllRoles());
-		model.addAttribute("userSize",userService.listAllUsers().size());
-		model.addAttribute("allUsers",userService.listAllUsers());
-		
-		return "index";
-	}
 	
 	
 	
-	@GetMapping("/login")
-	public String getLoginPage() {
-		return "login";
-	}
+	
 	
 	
 	// GET NEW ROLE
@@ -72,11 +55,17 @@ public class UserController {
 	}
 	
 	
+	
+	
 	// POST ROLE
 	@PostMapping("/users/save-role") // it'll be same th:action="@{/users/save-role}"
 	public String saveRole(Role role, RedirectAttributes redirectAttributes) {
 		
 		userService.saveRole(role);
+		
+		redirectAttributes.addFlashAttribute("message","Role has been saved  successfully");
+		redirectAttributes.addFlashAttribute("alertClass","alert-success");
+		
 		return "redirect:/users/add-role";
 	}
 	
@@ -138,7 +127,6 @@ public class UserController {
 	public String postNewUser(
 			User user, 
 			RedirectAttributes redirectAttributes,
-			Model model,
 			@RequestParam("imageInput") MultipartFile multipartFile		// newUserForm  -> <input  type="file" accept="image/png, image/jpeg" name="imageInput" 	class="form-control-file w-50" id="fileImage" /> coming from here.
 			) throws IOException 
 	{

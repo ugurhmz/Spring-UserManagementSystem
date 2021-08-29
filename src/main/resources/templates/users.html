@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xlmns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.tyhmeleaf.org">
 
 	<head th:replace="partials/head :: head_section('User Management System')"></head>
 
@@ -15,8 +15,12 @@
 		
 			<div class="my-1 row">
 				
-				<div class="display-4 ml-4">
-					<a th:href="@{/users/new-user}" class="text-success fas fa-user-plus"></a>
+				<div class=" ml-4">
+					<a th:href="@{/users/new-user}" class="display-4 text-success fas fa-user-plus"></a>
+					
+					<a style="font-size:1.5rem;" th:href="@{/users/add-role}" class=" ml-4 text-secondary">
+						<i class="fas fa-tags">Add Role</i>
+					</a>
 			
 				</div>
 					
@@ -43,6 +47,8 @@
 						</button>			 
 								 
 					</form>
+					
+					
 			
 				</div>
 				<!--  SEARCH INPUT  -->

@@ -12,24 +12,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ugurhmz.managementsys.entity.Role;
 import com.ugurhmz.managementsys.entity.User;
 
-// (1)
 
 
+public class SecurityUserDetails implements UserDetails {
 
-public class SecurityUserDetails implements UserDetails  {
-
-		
-		private User user;
+	private User user;
+	
 	
 	
 	public SecurityUserDetails(User user) {
 		this.user = user;
 	}
-		
 	
 	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+	
 		Set<Role> roles = user.getRoles();
 		List<SimpleGrantedAuthority> authories = new ArrayList<>();
 		
@@ -39,18 +38,13 @@ public class SecurityUserDetails implements UserDetails  {
 		
 		return authories;
 	}
-	
-	
-	
 
-	
 	
 	// password
 	@Override
 	public String getPassword() {
 		return user.getPassword();
 	}
-
 	
 	
 	
@@ -61,15 +55,14 @@ public class SecurityUserDetails implements UserDetails  {
 	}
 
 	
-	
 	// is Account Non expired?
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
-	
-	
 
+	
+	
 	// is Account Non Locked ?
 	@Override
 	public boolean isAccountNonLocked() {
@@ -93,26 +86,5 @@ public class SecurityUserDetails implements UserDetails  {
 	}
 
 	
-	// FULL NAME
-	public String getFullName() {
-		return this.user.getFirstName() + " "+ this.user.getLastName();
-	}
-	
-	
-	
-	
-	// Set firstName
-	public void setFirstName(String firstName) {
-		this.user.setFirstName(firstName);
-	}
-	
-	
-	
-	
-	
-	// Set lastName
-	public void setLastName(String lastName) {
-		this.user.setLastName(lastName);
-	}
-	
+
 }

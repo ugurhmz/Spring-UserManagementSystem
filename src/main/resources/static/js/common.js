@@ -1,11 +1,11 @@
-//LOGOUT jQuery
+/*
+		//LOGOUT jQuery
 		$(document).ready(function () {
 			$("#logoutLink").on("click", function(e) {
 				e.preventDefault();
 				document.logoutForm.submit();
 			})
 			
-			customizeDropDownMenu();
 		});
 		
 		
@@ -27,5 +27,5 @@
 				location.href = this.href;
 			})
 		}	
-			
+			*/
 			
