@@ -124,7 +124,7 @@
 								</span>
 								
 								<!--  if not null photos -->
-								<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width:120px;height:110px;" />                                            
+								<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"  style="max-width:240px;max-height: 200px;" />                                            
 									
 								</span>
 								
@@ -198,7 +198,7 @@
 						    	</span>
 						</div> 
 						<div>
-				<div th:if="${totalPages > 1}" >
+				<div th:if="${totalPages > 0}" >
 					<nav aria-label="mypagination" >
 							  <ul class="pagination justify-content-center">
 							  

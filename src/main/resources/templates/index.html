@@ -11,45 +11,48 @@
 	<!--  /NAVBAR -->
 
 
-	<!--  CONTAINER -->
-		<div class="container-fluid" style="height:62.8vh;">
+<!--  CONTAINER -->
+	<div class="container-fluid" style="height:62.8vh;">
+	
 		
-		
+			<h1 class="text-danger">Admin Control Panel..</h1>
+		Welcome &nbsp;<a th:href="@{/account}"
+		   sec:authentication="principal.fullname">	
+		</a>
 			
-			
-			
-	<div class="row rowStyle">
-	      <div class="col-md-4">
-	            <div class="card text-center" >
-	            
-	            	<div class="card-header text-center" style="font-size:1.4rem;">Roles size : <span><strong>[[${roleSize}]]</strong></span></div>
-	            
-	                  <div class="card-body">
-	                  	<div th:each="role : ${allRoles}">
-							<h5>[[${role.name}]]</h5>
-						</div>
-                     
-	                        
-	                  </div>
-                 </div>
-	      </div>
-	      
-	     <div class="col-md-4">
-	            <div class="card text-center" >
-	            
-	            	<div class="card-header text-center">Users  : <span><strong>[[${userSize}]]</strong></span></div>
-	            
-	                  <div class="card-body">
-	                  	<div th:each="user : ${allUsers}">
-							<h5>[[${user.id}]]  -   [[${user.firstName}]]</h5>
-						</div>
-                     
-	                        
-	                  </div>
-                 </div>
-	      </div>
-	      
-	</div>
+					
+			<div class="row rowStyle">
+			      <div class="col-md-4">
+			            <div class="card text-center" >
+			            
+			            	<div class="card-header text-center" style="font-size:1.4rem;">Roles size : <span><strong>[[${roleSize}]]</strong></span></div>
+			            
+			                  <div class="card-body">
+			                  	<div th:each="role : ${allRoles}">
+									<h5>[[${role.name}]]</h5>
+								</div>
+		                     
+			                        
+			                  </div>
+		                 </div>
+			      </div>
+			      
+			     <div class="col-md-4">
+			            <div class="card text-center" >
+			            
+			            	<div class="card-header text-center">Users  : <span><strong>[[${userSize}]]</strong></span></div>
+			            
+			                  <div class="card-body">
+			                  	<div th:each="user : ${allUsers}">
+									<h5>[[${user.id}]]  -   [[${user.firstName}]]</h5>
+								</div>
+		                     
+			                        
+			                  </div>
+		                 </div>
+			      </div>
+			      
+			</div>
 		
   </div>
 		

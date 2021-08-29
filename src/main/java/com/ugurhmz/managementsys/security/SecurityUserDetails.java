@@ -85,8 +85,29 @@ public class SecurityUserDetails implements UserDetails {
 		return user.isEnabled();
 	}
 
-
 	
+	
+	// FULL NAME
+	public String getFullname() {
+		return this.user.getFirstName() + " "+this.user.getLastName();
+	}
+		
+	
+	
+		
+	// Set firstName
+	public void setFirstName(String firstName) {
+		this.user.setFirstName(firstName);
+	}
+		
+		
+	
+	
+	// Set lastName
+	public void setLastName(String lastName) {
+		this.user.setLastName(lastName);
+	}
+		
 
 }
 

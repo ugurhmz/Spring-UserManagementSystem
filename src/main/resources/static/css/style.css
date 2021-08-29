@@ -12,6 +12,7 @@
 
 /* User form*/
 .createForm {
+	
 	margin : 0 auto;
 	border-radius: 50px;
 	font-weight:bolder;
@@ -103,6 +104,11 @@ nav {
 
 
 
+.createForm {
+	position:relative;
+	margin-bottom:12rem !important;
+	margin-top:0 !important;
+}
 
 
 

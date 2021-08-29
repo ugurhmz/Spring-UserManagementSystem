@@ -196,6 +196,14 @@ public class UserService {
 		
 		return userRepository.findAll(pageable);
 	}
+
+
+	
+	// for account detail
+	public User getByUserEmail(String email) {
+		return userRepository.getByUserEmail(email);
+		
+	}
 	
 	
 	
