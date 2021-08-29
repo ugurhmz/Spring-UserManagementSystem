@@ -104,15 +104,14 @@ public class UserController {
 	// GET NEW USER FORM
 	@GetMapping("/users/new-user")
 	public String getNewUser(Model model) {
-		
+		List<Role> listRoles = userService.listAllRoles();
 		User user = new User();		  //We creating User
 			 user.setEnabled(true);	  // user init enabled -> true	
 		
-		List<Role> listRoles = userService.listAllRoles();
 		
 		
-		model.addAttribute("pageTitle","Create New User");
 		model.addAttribute("user",user);
+		model.addAttribute("pageTitle","Create New User");
 		model.addAttribute("roles",listRoles);
 		
 		
@@ -123,56 +122,60 @@ public class UserController {
 	
 	
 	// POST NEW USER
-	@PostMapping("/users/save") 	// It'll be same in action  th:action="@{/users/save}
-	public String postNewUser(
-			User user, 
-			RedirectAttributes redirectAttributes,
-			@RequestParam("imageInput") MultipartFile multipartFile		// newUserForm  -> <input  type="file" accept="image/png, image/jpeg" name="imageInput" 	class="form-control-file w-50" id="fileImage" /> coming from here.
-			) throws IOException 
-	{
-		
-		// with photos save
-		if(!multipartFile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			user.setPhotos(fileName);
-			
-			User savedUser = userService.save(user);
-			
-			String uploadDirectory = "user-profile-photos/" + savedUser.getId();
-			
-			FileUploadUtil.cleanDirectory(uploadDirectory);				// Clean old photos
-			FileUploadUtil.saveFile(uploadDirectory, fileName, multipartFile);
+		@PostMapping("/users/save")		//It'll be same in action  th:action="@{/users/save}
+		public String postNewUser(
+				User user, RedirectAttributes redirectAttributes,
+				@RequestParam("imageInput") MultipartFile multipartFile ) throws IOException 
+		{
 			
 			
-		} else {
 			
-			if(user.getPhotos().isEmpty()) {
-				user.setPhotos(null);
+			// with photos save
+			if(!multipartFile.isEmpty()) {
+				
+				String fileName =  StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				user.setPhotos(fileName);
+				
+				User savedUser = userService.save(user);
+				
+				
+				
+				
+				String uploadDirectory = "user-profile-photos/" + savedUser.getId();
+				
+				FileUploadUtil.cleanDirectory(uploadDirectory);				// Clean old photos
+				FileUploadUtil.saveFile(uploadDirectory, fileName, multipartFile);
+				
+				
+			} else {
+				
+				if(user.getPhotos().isEmpty())  user.setPhotos(null);
+				userService.save(user);
 			}
 			
-			userService.save(user);	
+			//Message after redirect
+			redirectAttributes.addFlashAttribute("message", "User has been saved  successfully.");
+			redirectAttributes.addFlashAttribute("alertClass","alert-success");
+			
+			
+			//redirect the registered user in the table
+			String firstPartOfEmail = user.getEmail().split("@")[0];		//@  gördüğün yerden ayır, onun 0. indeksini al. Yani @gmail.com onda önceki olan ismi alıyor, onuda searchKeyword olarak veriyorki direk sanki arayıp onu bulmuş gibi redirect yapıyoruz 
+			
+			System.out.println(user.getEmail().split("@"));
+			System.out.println("firstPartOfEmail : "+firstPartOfEmail);
+			
+			return  "redirect:/users/page/1?sortField=id&sortDir=asc&searchKeyword=" + firstPartOfEmail;
 		}
+
 		
-		
-		
-		//without photos save
-		userService.save(user);
-		
-		//Message after redirect
-		redirectAttributes.addFlashAttribute("message", "User has been saved  successfully.");
-		redirectAttributes.addFlashAttribute("alertClass","alert-success");
-		
-		
-		//redirect the registered user in the table
-		String firstPartOfEmail = user.getEmail().split("@")[0];		//@  gördüğün yerden ayır, onun 0. indeksini al. Yani @gmail.com onda önceki olan ismi alıyor, onuda searchKeyword olarak veriyorki direk sanki arayıp onu bulmuş gibi redirect yapıyoruz 
-		
-		System.out.println(user.getEmail().split("@"));
-		System.out.println("firstPartOfEmail : "+firstPartOfEmail);
-		
-		return  "redirect:/users/page/1?sortField=id&sortDir=asc&searchKeyword=" + firstPartOfEmail;
-		
-	}
 	
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
