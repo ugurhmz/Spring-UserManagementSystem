@@ -1,12 +1,12 @@
 $(document).ready(function () {
 			
-			$('.myPhoto').css("height", 210); // Units are assumed to be pixels
+			$('.myPhoto').css("height", 210); 
 			$('.myPhoto').css("width", 210);
 			$('.myPhoto').css('object-fit','cover');
 			$('.myPhoto').css('object-position','top');
 			
 			
-			// Cancel Button Click  -> Redirect in /users
+			// Cancel Button Click  -> Redirect in /
 			$("#cancelBtn").on("click", function () {
 				window.location = moduleURL;
 				
@@ -28,7 +28,7 @@ $(document).ready(function () {
 				else {
 						this.setCustomValidity("");
 							
-						$('.myPhoto').css("height", 180); // Units are assumed to be pixels
+						$('.myPhoto').css("height", 180); 
 						$('.myPhoto').css("width", 160);
 						$('.myPhoto').css('object-fit','cover');
 						

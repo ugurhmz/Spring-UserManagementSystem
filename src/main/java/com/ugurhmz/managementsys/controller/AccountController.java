@@ -28,7 +28,7 @@ public class AccountController {
 	{
 		
 		String email = loggedUser.getUsername();
-			User user =	userService.getByUserEmail(email);
+		User user =	userService.getByUserEmail(email);
 		
 				
 		model.addAttribute("user",user);

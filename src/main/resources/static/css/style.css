@@ -113,6 +113,19 @@ nav {
 
 
 
+#myDropdown a:hover{
+	background-color:#007BFF;
+	color:white;
+	font-weight:bolder;
+	
+	
+	
+}
+
+#myDropdown {
+	top: -35px;
+	text-align:center;
+}
 
 
 
