@@ -81,12 +81,11 @@ public class UserRepositoryTests {
 	// test update user
 	@Test
 	public void updateUserTest() {
-		User userSelin = userRepo.findById(1).get();
+		User userUgur= userRepo.findById(1).get();
 		
-		userSelin.setFirstName("Seliinn67");
-		userSelin.setEnabled(false);
+		userUgur.setEnabled(true);
 		
-		userRepo.save(userSelin);
+		userRepo.save(userUgur);
 	}
 	
 	

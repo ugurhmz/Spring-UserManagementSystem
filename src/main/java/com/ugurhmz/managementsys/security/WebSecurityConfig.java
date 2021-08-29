@@ -85,11 +85,11 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				.defaultSuccessUrl("/", true)
 				.permitAll()
-			.and().logout().permitAll()
-			.and()
-				.rememberMe()
-					.key("AbcDefgHijKlmnoprs_123456789")
-					.tokenValiditySeconds(7 * 24 * 60 * 60);
+				.and().logout().permitAll()
+				.and()
+					.rememberMe()
+					.key("SQWeqasldASDlqweldkdlasd_676152234123")
+					.tokenValiditySeconds(7 * 24 *60 *60);
 	}
 
 	
