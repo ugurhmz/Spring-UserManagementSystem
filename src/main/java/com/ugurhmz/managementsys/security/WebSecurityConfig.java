@@ -59,16 +59,16 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 
 	
 	
-	
-	/* BEFORE AUTHENTICATON
+	/*
+	// BEFORE AUTHENTICATON
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.anyRequest().permitAll();
-	}*/
+	}
 	
 	
-	
+	*/
 	
 	
 
@@ -77,7 +77,6 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/users/**").hasAuthority("Admin")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
