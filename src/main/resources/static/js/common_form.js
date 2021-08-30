@@ -1,7 +1,7 @@
 $(document).ready(function () {
 			
-			$('.myPhoto').css("height", 210); 
-			$('.myPhoto').css("width", 210);
+			$('.myPhoto').css("height", 150); 
+			$('.myPhoto').css("width", 180);
 			$('.myPhoto').css('object-fit','cover');
 			$('.myPhoto').css('object-position','top');
 			
@@ -28,9 +28,10 @@ $(document).ready(function () {
 				else {
 						this.setCustomValidity("");
 							
-						$('.myPhoto').css("height", 180); 
-						$('.myPhoto').css("width", 160);
+						$('.myPhoto').css("height", 150); 
+						$('.myPhoto').css("width", 180);
 						$('.myPhoto').css('object-fit','cover');
+						$('.myPhoto').css('object-position','top');
 						
 						
 						showImageThumbnail(this);

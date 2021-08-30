@@ -199,9 +199,33 @@ public class UserService {
 
 
 	
-	// for account detail
+	// for Account DETAIL
 	public User getByUserEmail(String email) {
 		return userRepository.getByUserEmail(email);
+		
+	}
+
+
+	
+	/// Account Update
+	public User accountUpdate(User userInForm) {
+		User userInDB =	userRepository.findById(userInForm.getId()).get();
+		
+		// password is not empty
+		if(!userInForm.getPassword().isEmpty()) {
+			userInDB.setPassword(userInForm.getPassword());
+			encodePassword(userInDB);
+		}
+		
+		// photos is not null
+		if(userInForm.getPhotos() != null) {
+			userInDB.setPhotos(userInForm.getPhotos());
+		}
+		
+		userInDB.setFirstName(userInForm.getFirstName());
+		userInDB.setLastName(userInForm.getLastName());
+		
+		return userRepository.save(userInDB);
 		
 	}
 	

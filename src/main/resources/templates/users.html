@@ -124,7 +124,7 @@
 								</span>
 								
 								<!--  if not null photos -->
-								<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"  style="max-width:240px;max-height: 200px;" />                                            
+								<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"  style="max-width:150px;max-height: 160px;" />                                            
 									
 								</span>
 								
@@ -197,8 +197,8 @@
 							    	No users found!
 						    	</span>
 						</div> 
-						<div>
-				<div th:if="${totalPages > 0}" >
+						
+				<div th:if="${totalPages > 0}" style="margin-bottom:5rem;" >
 					<nav aria-label="mypagination" >
 							  <ul class="pagination justify-content-center">
 							  
@@ -250,7 +250,7 @@
 							  </ul>
 							</nav>
 						</div>	
-					</div>
+					
 					
 						
 				<!--  PAGINATION -->
