@@ -111,7 +111,7 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 		
 		auth
 			.inMemoryAuthentication()
-			.withUser("admin")
+			.withUser("admin@gmail.com")
 			.password("{noop}admin")
 			.roles("Admin");
 	}
