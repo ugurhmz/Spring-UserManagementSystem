@@ -1,5 +1,6 @@
 package com.ugurhmz.managementsys.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -103,6 +104,16 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 			.antMatchers("/images/**","/js/**","/webjars/**");
 			
 			
+	}
+	
+	@Autowired
+	public void configrueGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		
+		auth
+			.inMemoryAuthentication()
+			.withUser("admin")
+			.password("{noop}admin")
+			.roles("Admin");
 	}
 	
 	
