@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.ugurhmz.managementsys
+web java $JAVA_OPTS -cp target/classes:target/dependency/* com.ugurhmz.managementsys
