@@ -14,13 +14,14 @@
 <!--  CONTAINER -->
 	<div class="container-fluid" style="height:62.8vh;">
 	
-		
+	
 	
 			Welcome &nbsp;
 			<a 	th:href="@{/account}"
 		   		sec:authentication="principal.username">	
 		    </a>
 			
+			<span sec:authentication="principal.authorities"></span>
 					
 			<div class="row rowStyle">
 			      <div class="col-md-4">

@@ -34,7 +34,8 @@
 				-->
 				
 				<!-- When click users in navbar, directly sorting by id -->
-				<li class="nav-item">
+				
+				<li class="nav-item" sec:authorize="hasAuthority('Admin')">
 						<a class="nav-link" th:href="@{/users/page/1?sortField=id&sortDir=asc}">Users</a>
 				</li>
 					
@@ -54,9 +55,16 @@
 						    
 						  </button>
 						  <div class="dropdown-menu" id="myDropdown" aria-labelledby="dropdownMenuButton">
-						   	<a id="logoutLink" class="dropdown-item" href="">Logout</a>
-						    <a class="dropdown-item" th:href="@{/login}">Login</a>
-						    <a class="dropdown-item" th:href="@{/account}">Account Detail</a>
+						  
+						   			<div sec:authorize="isAuthenticated()">
+       								 	<a class="dropdown-item" th:href="@{/account}">Account Detail</a>
+							       		<a id="logoutLink" class="dropdown-item" href="">Logout</a>
+						 
+   								 	</div>
+						   	
+							    	 <div sec:authorize="isAnonymous()">
+							    		<a class="dropdown-item" th:href="@{/login}">Login</a>
+							 		 </div>
 						  </div>
 				</div>     
 				     

@@ -196,7 +196,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("message",e.getMessage());
 		}
 		
-		return "redirect:/users";
+		return "redirect:/users/page/1?sortField=id&sortDir=asc";
 	}
 	
 	

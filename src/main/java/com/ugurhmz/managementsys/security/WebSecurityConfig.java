@@ -77,19 +77,20 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+			//Eklenmeden önceki -> antMatchers yoktu.
+			.antMatchers("/users/**").hasAuthority("Admin")			//Eklenecek olan
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
 				.loginPage("/login")
 				.usernameParameter("email")
-				.passwordParameter("password")
 				.defaultSuccessUrl("/", true)
 				.permitAll()
-				.and().logout().permitAll()
-				.and()
-					.rememberMe()
-					.key("SQWeqasldASDlqweldkdlasd_676152234123")
-					.tokenValiditySeconds(7 * 24 *60 *60);
+			.and().logout().permitAll()
+			.and()
+				.rememberMe()
+					.key("ABCQWESADSADxczceqwe_6767526734")
+					.tokenValiditySeconds(7 * 24 * 60 * 60);
 	}
 
 	
