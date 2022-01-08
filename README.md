@@ -1,4 +1,4 @@
-# Spring-UserManagementSystem
+# SpringBoot-UserManagementSystem
 Spring Boot, Spring Security, JUnit, Thymeleaf, MySQL,  jQuery, BootStrap4, FontAwesome, HTML5,&amp;CSS. CRUD , Image Upload Fronted &amp; Backend, Pagination, Searching, BCryptPasswordEncoder, Authentication, Authorization, Login/Logout Page, Error Page(404,403,500)
 
 ### App demo video link : https://www.linkedin.com/feed/update/urn:li:activity:6838620071120662528/
